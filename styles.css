@@ -1,32 +1,135 @@
-/* styles.css */
+/* Custom Styles */
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --accent-color: #e74c3c;
+    --text-light: #ecf0f1;
+    --transition: all 0.3s ease;
+}
+
 body {
-    background-color: #f8f9fa;
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
 }
 
+/* Header Styles */
 header {
-    background-image: url('header-bg.jpg'); 
-    background-size: cover;
-    background-position: center;
-    color: white;
-    text-shadow: 1px 1px 5px #000;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    position: relative;
+    overflow: hidden;
 }
 
+header::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml,<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg"><rect width="20" height="20" fill="none"/><path d="M0 0l20 20M20 0L0 20" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></svg>');
+    opacity: 0.1;
+}
+
+.display-4 {
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Card and Image Styles */
 .card {
-    border-radius: 10px;
+    border: none;
+    transition: var(--transition);
+    border-radius: 15px;
 }
 
-.img-thumbnail {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
 
-h1, h2, h3 {
-    font-family: 'Arial', sans-serif;
-    font-weight: bold;
+.carousel-item img {
+    transition: var(--transition);
+    border: 4px solid var(--secondary-color);
 }
+
+.carousel-item img:hover {
+    transform: scale(1.05);
+}
+
+/* Links and Buttons */
+a {
+    color: var(--secondary-color);
+    transition: var(--transition);
+}
+
+a:hover {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+.btn {
+    border-radius: 25px;
+    padding: 10px 25px;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+/* Profile Section */
+.profile-info {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.8s ease forwards;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
-    .carousel-item img {
-        max-height: 200px; 
+    .display-4 {
+        font-size: 2rem;
     }
+    
+    .carousel-item img {
+        height: 200px;
+        width: 200px;
+    }
+}
+
+/* Footer */
+footer {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    position: relative;
+}
+
+footer p {
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--secondary-color);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
 }
