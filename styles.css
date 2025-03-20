@@ -159,6 +159,10 @@ footer p {
     background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
 }
 
+.social-icon.linkedin {
+    background-color: #0077B5;
+}
+
 .social-icon:hover {
     transform: translateY(-5px);
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
@@ -185,4 +189,95 @@ footer .text-white {
 footer .text-white:hover {
     transform: translateY(-3px);
     color: var(--secondary-color) !important;
+}
+
+/* Skills Section */
+.skill-category {
+    padding: 20px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+    height: 100%;
+}
+
+.skill-item .progress {
+    height: 8px;
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 4px;
+}
+
+.skill-item .progress-bar {
+    background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+    border-radius: 4px;
+    transition: width 1s ease-in-out;
+}
+
+/* Special styling for Python and VB.NET */
+.skill-item:nth-child(1) .progress-bar {
+    background: linear-gradient(90deg, #3776AB, #FFE873); /* Python colors */
+}
+
+.skill-item:nth-child(2) .progress-bar {
+    background: linear-gradient(90deg, #68217A, #9B4F96); /* VB.NET colors */
+}
+
+/* Projects Section */
+.project-card {
+    transition: var(--transition);
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+}
+
+.project-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.project-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.project-card:hover .project-overlay {
+    opacity: 1;
+}
+
+.project-links a {
+    transform: translateY(20px);
+    transition: var(--transition);
+}
+
+.project-card:hover .project-links a {
+    transform: translateY(0);
+}
+
+.project-info {
+    padding: 15px;
+}
+
+.project-tags .badge {
+    margin-right: 5px;
+    padding: 5px 10px;
+    font-weight: 500;
+}
+
+/* Animation for skill bars */
+@keyframes fillBar {
+    from { width: 0; }
+    to { width: var(--width); }
+}
+
+.skill-item .progress-bar {
+    animation: fillBar 1.5s ease-out forwards;
 }
