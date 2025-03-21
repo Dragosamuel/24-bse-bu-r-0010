@@ -549,24 +549,27 @@
                             </div>
                         </div>
                         <div class="col-lg-6">
-                            <form id="contactForm" class="contact-form p-4">
+                            <form name="contact" method="POST" data-netlify="true" class="contact-form p-4">
+                                <input type="hidden" name="form-name" value="contact">
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Your Name</label>
-                                    <input type="text" class="form-control" id="name" required>
+                                    <input type="text" class="form-control" id="name" name="name" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Your Email</label>
-                                    <input type="email" class="form-control" id="email" required>
+                                    <input type="email" class="form-control" id="email" name="email" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="subject" class="form-label">Subject</label>
-                                    <input type="text" class="form-control" id="subject" required>
+                                    <input type="text" class="form-control" id="subject" name="subject" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="message" class="form-label">Message</label>
-                                    <textarea class="form-control" id="message" rows="5" required></textarea>
+                                    <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
                                 </div>
-                                <div id="formMessage" class="alert d-none"></div>
+                                <div class="alert alert-success d-none" id="formSuccess">
+                                    Message sent successfully!
+                                </div>
                                 <button type="submit" class="btn btn-primary w-100" id="submitBtn">
                                     <i class="fas fa-paper-plane me-2"></i>Send Message
                                 </button>
@@ -637,54 +640,37 @@
         });
 
         // Contact Form Handling
-        const contactForm = document.getElementById('contactForm');
-        const submitBtn = document.getElementById('submitBtn');
-        const formMessage = document.getElementById('formMessage');
-
-        contactForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            // Get form data
-            const formData = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                subject: document.getElementById('subject').value,
-                message: document.getElementById('message').value
-            };
-
-            // Show loading state
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Sending...';
-
-            try {
-                const response = await fetch('http://localhost:3000/api/contact', {
+        const form = document.querySelector('form[name="contact"]');
+        const formSuccess = document.getElementById('formSuccess');
+        
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const submitBtn = this.querySelector('button[type="submit"]');
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Sending...';
+                
+                fetch(form.action, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(formData)
+                    body: new FormData(form)
+                })
+                .then(() => {
+                    form.reset();
+                    formSuccess.classList.remove('d-none');
+                    setTimeout(() => {
+                        formSuccess.classList.add('d-none');
+                    }, 5000);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('There was an error sending your message. Please try again.');
+                })
+                .finally(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fas fa-paper-plane me-2"></i>Send Message';
                 });
-
-                const data = await response.json();
-
-                // Show success/error message
-                formMessage.classList.remove('d-none', 'alert-success', 'alert-danger');
-                formMessage.classList.add(data.success ? 'alert-success' : 'alert-danger');
-                formMessage.textContent = data.message;
-
-                if (data.success) {
-                    contactForm.reset();
-                }
-            } catch (error) {
-                formMessage.classList.remove('d-none', 'alert-success', 'alert-danger');
-                formMessage.classList.add('alert-danger');
-                formMessage.textContent = 'Error sending message. Please try again later.';
-            } finally {
-                // Reset button state
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = '<i class="fas fa-paper-plane me-2"></i>Send Message';
-            }
-        });
+            });
+        }
     </script>
     <script>
         // Initialize Fancybox
@@ -709,7 +695,6 @@
         });
     </script>
     <script>
-        // Skills Animation
         function animateSkills() {
             const skillItems = document.querySelectorAll('.skill-item');
             
@@ -717,39 +702,73 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         const skillItem = entry.target;
-                        const targetSkill = skillItem.dataset.skill;
+                        const targetSkill = parseInt(skillItem.dataset.skill);
                         const progressBar = skillItem.querySelector('.progress-bar');
                         const percentageSpan = skillItem.querySelector('.skill-percentage');
                         
+                        // Reset to initial state
                         let currentSkill = 0;
-                        const animationDuration = 1500; // 1.5 seconds
-                        const steps = 60; // 60 frames per second
-                        const increment = targetSkill / steps;
+                        progressBar.style.width = '0%';
+                        percentageSpan.textContent = '0%';
                         
-                        const animation = setInterval(() => {
-                            currentSkill += increment;
+                        // Use requestAnimationFrame for smoother animation
+                        const startTime = performance.now();
+                        const duration = 1500; // 1.5 seconds
+                        
+                        function updateProgress(currentTime) {
+                            const elapsed = currentTime - startTime;
+                            const progress = Math.min(elapsed / duration, 1);
                             
-                            if (currentSkill >= targetSkill) {
-                                currentSkill = targetSkill;
-                                clearInterval(animation);
-                            }
+                            // Easing function for smooth animation
+                            const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+                            currentSkill = Math.round(targetSkill * easeOutQuart);
                             
                             progressBar.style.width = `${currentSkill}%`;
-                            percentageSpan.textContent = `${Math.round(currentSkill)}%`;
-                        }, animationDuration / steps);
+                            percentageSpan.textContent = `${currentSkill}%`;
+                            
+                            if (progress < 1) {
+                                requestAnimationFrame(updateProgress);
+                            } else {
+                                // Add completion class for additional effects
+                                skillItem.classList.add('skill-complete');
+                                
+                                // Trigger shimmer effect
+                                progressBar.style.animation = 'shimmer 2s infinite';
+                            }
+                        }
                         
+                        requestAnimationFrame(updateProgress);
                         observer.unobserve(skillItem);
+                        
+                        // Add hover effect for interactivity
+                        skillItem.addEventListener('mouseenter', () => {
+                            progressBar.style.transform = 'scaleX(1.02)';
+                        });
+                        
+                        skillItem.addEventListener('mouseleave', () => {
+                            progressBar.style.transform = 'scaleX(1)';
+                        });
                     }
                 });
             }, {
-                threshold: 0.5
+                threshold: 0.2,
+                rootMargin: '0px 0px -50px 0px'
             });
             
             skillItems.forEach(item => observer.observe(item));
         }
 
         // Initialize skills animation when the page loads
-        document.addEventListener('DOMContentLoaded', animateSkills);
+        document.addEventListener('DOMContentLoaded', () => {
+            animateSkills();
+            
+            // Re-run animation when tab becomes visible
+            document.addEventListener('visibilitychange', () => {
+                if (!document.hidden) {
+                    animateSkills();
+                }
+            });
+        });
     </script>
 </body>
 </html>
