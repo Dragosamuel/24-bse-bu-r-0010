@@ -180,83 +180,87 @@
                     <h3 class="text-center mb-4">Skills & Expertise</h3>
                     <div class="row g-4">
                         <div class="col-md-6">
-                            <div class="skill-category">
-                                <h4 class="h5 mb-3"><i class="fas fa-code me-2"></i>Programming Skills</h4>
-                                <div class="skill-item mb-3">
+                            <div class="skill-category" data-aos="fade-right">
+                                <h4 class="h5 mb-3">
+                                    <i class="fas fa-code me-2"></i>Programming Skills
+                                </h4>
+                                <div class="skill-item mb-3" data-skill="95">
                                     <div class="d-flex justify-content-between mb-1">
-                                        <span>Python</span>
-                                        <span>95%</span>
+                                        <span class="skill-name">Python</span>
+                                        <span class="skill-percentage">0%</span>
                                     </div>
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 95%"></div>
+                                        <div class="progress-bar" role="progressbar" style="width: 0%"></div>
                                     </div>
                                 </div>
-                                <div class="skill-item mb-3">
+                                <div class="skill-item mb-3" data-skill="95">
                                     <div class="d-flex justify-content-between mb-1">
-                                        <span>HTML</span>
-                                        <span>95%</span>
+                                        <span class="skill-name">HTML</span>
+                                        <span class="skill-percentage">0%</span>
                                     </div>
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 95%"></div>
+                                        <div class="progress-bar" role="progressbar" style="width: 0%"></div>
                                     </div>
                                 </div>
-                                <div class="skill-item mb-3">
+                                <div class="skill-item mb-3" data-skill="90">
                                     <div class="d-flex justify-content-between mb-1">
-                                        <span>HTML/CSS</span>
-                                        <span>90%</span>
+                                        <span class="skill-name">HTML/CSS</span>
+                                        <span class="skill-percentage">0%</span>
                                     </div>
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 90%"></div>
+                                        <div class="progress-bar" role="progressbar" style="width: 0%"></div>
                                     </div>
                                 </div>
-                                <div class="skill-item mb-3">
+                                <div class="skill-item mb-3" data-skill="85">
                                     <div class="d-flex justify-content-between mb-1">
-                                        <span>JavaScript</span>
-                                        <span>85%</span>
+                                        <span class="skill-name">JavaScript</span>
+                                        <span class="skill-percentage">0%</span>
                                     </div>
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 85%"></div>
+                                        <div class="progress-bar" role="progressbar" style="width: 0%"></div>
                                     </div>
                                 </div>
-                                <div class="skill-item mb-3">
+                                <div class="skill-item mb-3" data-skill="80">
                                     <div class="d-flex justify-content-between mb-1">
-                                        <span>PHP</span>
-                                        <span>80%</span>
+                                        <span class="skill-name">PHP</span>
+                                        <span class="skill-percentage">0%</span>
                                     </div>
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 80%"></div>
+                                        <div class="progress-bar" role="progressbar" style="width: 0%"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="skill-category">
-                                <h4 class="h5 mb-3"><i class="fas fa-tools me-2"></i>Tools & Technologies</h4>
-                                <div class="skill-item mb-3">
+                            <div class="skill-category" data-aos="fade-left">
+                                <h4 class="h5 mb-3">
+                                    <i class="fas fa-tools me-2"></i>Tools & Technologies
+                                </h4>
+                                <div class="skill-item mb-3" data-skill="95">
                                     <div class="d-flex justify-content-between mb-1">
-                                        <span>Bootstrap</span>
-                                        <span>95%</span>
+                                        <span class="skill-name">Bootstrap</span>
+                                        <span class="skill-percentage">0%</span>
                                     </div>
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 95%"></div>
+                                        <div class="progress-bar" role="progressbar" style="width: 0%"></div>
                                     </div>
                                 </div>
-                                <div class="skill-item mb-3">
+                                <div class="skill-item mb-3" data-skill="85">
                                     <div class="d-flex justify-content-between mb-1">
-                                        <span>Git/GitHub</span>
-                                        <span>85%</span>
+                                        <span class="skill-name">Git/GitHub</span>
+                                        <span class="skill-percentage">0%</span>
                                     </div>
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 85%"></div>
+                                        <div class="progress-bar" role="progressbar" style="width: 0%"></div>
                                     </div>
                                 </div>
-                                <div class="skill-item mb-3">
+                                <div class="skill-item mb-3" data-skill="90">
                                     <div class="d-flex justify-content-between mb-1">
-                                        <span>Responsive Design</span>
-                                        <span>90%</span>
+                                        <span class="skill-name">Responsive Design</span>
+                                        <span class="skill-percentage">0%</span>
                                     </div>
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 90%"></div>
+                                        <div class="progress-bar" role="progressbar" style="width: 0%"></div>
                                     </div>
                                 </div>
                             </div>
@@ -703,6 +707,49 @@
                 FULLSCREEN: "Fullscreen"
             }
         });
+    </script>
+    <script>
+        // Skills Animation
+        function animateSkills() {
+            const skillItems = document.querySelectorAll('.skill-item');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const skillItem = entry.target;
+                        const targetSkill = skillItem.dataset.skill;
+                        const progressBar = skillItem.querySelector('.progress-bar');
+                        const percentageSpan = skillItem.querySelector('.skill-percentage');
+                        
+                        let currentSkill = 0;
+                        const animationDuration = 1500; // 1.5 seconds
+                        const steps = 60; // 60 frames per second
+                        const increment = targetSkill / steps;
+                        
+                        const animation = setInterval(() => {
+                            currentSkill += increment;
+                            
+                            if (currentSkill >= targetSkill) {
+                                currentSkill = targetSkill;
+                                clearInterval(animation);
+                            }
+                            
+                            progressBar.style.width = `${currentSkill}%`;
+                            percentageSpan.textContent = `${Math.round(currentSkill)}%`;
+                        }, animationDuration / steps);
+                        
+                        observer.unobserve(skillItem);
+                    }
+                });
+            }, {
+                threshold: 0.5
+            });
+            
+            skillItems.forEach(item => observer.observe(item));
+        }
+
+        // Initialize skills animation when the page loads
+        document.addEventListener('DOMContentLoaded', animateSkills);
     </script>
 </body>
 </html>
